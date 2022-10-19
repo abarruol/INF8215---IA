@@ -1,0 +1,19 @@
+function Basic_Line_Detector(image, W):
+
+
+	INPUTS : 
+		image : image, de taille N*M, avec 3 canaux (RGB) 
+		W : entier (impair de préférence), qui correspond à la taille de la fenêtre utilisée
+	OUTPOUT : 
+		segmented_image : segmentation des vaisseaux sanguins de l'image
+
+
+	image = image[:,:, 1] # On récupère le canal vert de l'image
+	image = 255 - image # On inverse les couleurs pour que les vaisseaux apparaissent plus clair que le fond de l'image
+	window = 1/(W*W) * array((W*W)) # On crée une fenêtre moyenneuse de taille W*W
+
+	# Application du filtre moyenneur
+	mean_image = image.copy()
+	mean_image = convolve(mean_image, window) # On effectue une convolution entre l'image et la fenêtre pour obtenir l'image moyennée
+
+	#
